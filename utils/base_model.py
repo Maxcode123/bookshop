@@ -31,5 +31,8 @@ class BaseModel(Model):
             return None
 
 
-class UUIDMixin:
+class UUIDMixin(Model):
+    class Meta:
+        abstract = True
+
     uuid = UUIDField(default=uuid4, null=False, unique=True)
