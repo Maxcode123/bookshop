@@ -10,11 +10,14 @@ from django.db.models import (
     CASCADE,
 )
 
-from bookshop.utils.base_model import register_admin, BaseModel, UUIDMixin
+from utils.base_model import register_admin, BaseModel, UUIDMixin
 
 
 @register_admin
 class Genre(BaseModel, UUIDMixin):
+    class Meta:
+        db_table = "genres"
+
     parent_id = IntegerField(null=True)
     root_id = IntegerField()
     name = CharField(max_length=100)
@@ -22,11 +25,17 @@ class Genre(BaseModel, UUIDMixin):
 
 @register_admin
 class Publisher(BaseModel, UUIDMixin):
-    name = CharField(max_field=200)
+    class Meta:
+        db_table = "publishers"
+
+    name = CharField(max_length=200)
 
 
 @register_admin
 class Author(BaseModel, UUIDMixin):
+    class Meta:
+        db_table = "authors"
+
     first_names = CharField(max_length=200)
     last_name = CharField(max_length=200)
     date_of_birth = DateField()
@@ -36,6 +45,9 @@ class Author(BaseModel, UUIDMixin):
 
 @register_admin
 class Book(BaseModel, UUIDMixin):
+    class Meta:
+        db_table = "books"
+
     class Cover(IntegerChoices):
         PAPERBACK = 1
         HARDBACK = 2
@@ -67,6 +79,9 @@ class Book(BaseModel, UUIDMixin):
 
 @register_admin
 class BookAuthor(BaseModel):
+    class Meta:
+        db_table = "book_authors"
+
     class Role(IntegerChoices):
         AUTHOR = 1
         TRANSLATOR = 2
@@ -75,12 +90,15 @@ class BookAuthor(BaseModel):
         INTRODUCTION = 5
         ANTHOLOGIST = 6
 
-    author = ForeignKey(Author)
-    book = ForeignKey(Book)
+    author = ForeignKey(Author, on_delete=CASCADE)
+    book = ForeignKey(Book, on_delete=CASCADE)
     role = IntegerField(choices=Role)
 
 
 @register_admin
 class BookGenre(BaseModel):
-    book = ForeignKey(Book)
-    genre = ForeignKey(Genre)
+    class Meta:
+        db_table = "book_genres"
+
+    book = ForeignKey(Book, on_delete=CASCADE)
+    genre = ForeignKey(Genre, on_delete=CASCADE)
