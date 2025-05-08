@@ -5,7 +5,9 @@ start-db:
 
 restart-db:
 	docker restart $(DB_CONTAINER)
-	docker container logs --follow $(DB_CONTAINER)
+
+log-db:
+	docker container logs $(DB_CONTAINER)
 
 stop-db:
 	docker stop $(DB_CONTAINER)
@@ -16,8 +18,11 @@ connect-db:
 clean-containers:
 	docker container rm -f $(DB_CONTAINER)
 
+create-migrations:
+	uv run python manage.py makemigrations
+
 test:
-	python manage.py test -v 2
+	uv run python manage.py test -v 2
 
 run:
-	python manage.py runserver
+	uv run python manage.py runserver
