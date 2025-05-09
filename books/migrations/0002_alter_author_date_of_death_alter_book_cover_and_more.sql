@@ -1,0 +1,50 @@
+BEGIN;
+--
+-- Alter field date_of_death on author
+--
+-- (no-op)
+--
+-- Alter field cover on book
+--
+-- (no-op)
+--
+-- Alter field edition on book
+--
+-- (no-op)
+--
+-- Alter field introductory_pages on book
+--
+-- (no-op)
+--
+-- Alter field isbn on book
+--
+-- (no-op)
+--
+-- Alter field length_in_cm on book
+--
+-- (no-op)
+--
+-- Alter field paper on book
+--
+-- (no-op)
+--
+-- Alter field series on book
+--
+-- (no-op)
+--
+-- Alter field volume on book
+--
+-- (no-op)
+--
+-- Alter field weight_in_gr on book
+--
+-- (no-op)
+--
+-- Alter field width_in_cm on book
+--
+-- (no-op)
+--
+-- Alter field parent_id on genre
+--
+-- (no-op)
+COMMIT;

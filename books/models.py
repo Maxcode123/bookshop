@@ -18,7 +18,7 @@ class Genre(BaseModel, UUIDMixin):
     class Meta:
         db_table = "genres"
 
-    parent_id = IntegerField(null=True)
+    parent_id = IntegerField(null=True, blank=True)
     root_id = IntegerField()
     name = CharField(max_length=100)
 
@@ -39,7 +39,7 @@ class Author(BaseModel, UUIDMixin):
     first_names = CharField(max_length=200)
     last_name = CharField(max_length=200)
     date_of_birth = DateField()
-    date_of_death = DateField(null=True)
+    date_of_death = DateField(null=True, blank=True)
     summary = TextField()
 
 
@@ -62,16 +62,16 @@ class Book(BaseModel, UUIDMixin):
 
     title = CharField(max_length=200)
     pages = IntegerField()
-    introductory_pages = CharField(max_length=50, null=True)
-    width_in_cm = IntegerField(null=True)
-    length_in_cm = IntegerField(null=True)
-    cover = IntegerField(null=True, choices=Cover)
-    weight_in_gr = IntegerField(null=True)
-    paper = IntegerField(null=True, choices=Paper)
-    isbn = CharField(max_length=13, null=True)
-    edition = SmallIntegerField(null=True)
-    series = CharField(max_length=200, null=True)
-    volume = SmallIntegerField(null=True)
+    introductory_pages = CharField(max_length=50, null=True, blank=True)
+    width_in_cm = IntegerField(null=True, blank=True)
+    length_in_cm = IntegerField(null=True, blank=True)
+    cover = IntegerField(null=True, choices=Cover, blank=True)
+    weight_in_gr = IntegerField(null=True, blank=True)
+    paper = IntegerField(null=True, choices=Paper, blank=True)
+    isbn = CharField(max_length=13, null=True, blank=True)
+    edition = SmallIntegerField(null=True, blank=True)
+    series = CharField(max_length=200, null=True, blank=True)
+    volume = SmallIntegerField(null=True, blank=True)
     publication_date = DateField()
     language = CharField(max_length=2, choices=Language)
     publisher = ForeignKey(Publisher, on_delete=CASCADE)
