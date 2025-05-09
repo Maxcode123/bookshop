@@ -7,6 +7,7 @@ from django.db.models import (
     IntegerChoices,
     SmallIntegerField,
     TextChoices,
+    ManyToManyField,
     CASCADE,
 )
 
@@ -22,6 +23,9 @@ class Genre(BaseModel, UUIDMixin):
     root_id = IntegerField()
     name = CharField(max_length=100)
 
+    def __str__(self) -> str:
+        return self.name
+
 
 @register_admin
 class Publisher(BaseModel, UUIDMixin):
@@ -29,6 +33,9 @@ class Publisher(BaseModel, UUIDMixin):
         db_table = "publishers"
 
     name = CharField(max_length=200)
+
+    def __str__(self) -> str:
+        return self.name
 
 
 @register_admin
@@ -41,6 +48,9 @@ class Author(BaseModel, UUIDMixin):
     date_of_birth = DateField()
     date_of_death = DateField(null=True, blank=True)
     summary = TextField()
+
+    def __str__(self) -> str:
+        return f"{self.first_names} {self.last_name}"
 
 
 @register_admin
@@ -75,6 +85,18 @@ class Book(BaseModel, UUIDMixin):
     publication_date = DateField()
     language = CharField(max_length=2, choices=Language)
     publisher = ForeignKey(Publisher, on_delete=CASCADE)
+    genres = ManyToManyField(
+        Genre, through="BookGenre", through_fields=("book", "genre")
+    )
+    authors = ManyToManyField(Author, through="BookAuthor", through_fields=("book", "author"))
+
+    def __str__(self) -> str:
+        string = self.title
+        string += f" vol. {self.volume}" if self.volume is not None else ""
+        string += f", ed. {self.edition}" if self.edition is not None else ""
+        string += f" ({self.publication_date.year})"
+        string += f", {self.publisher}"
+        return string
 
 
 @register_admin

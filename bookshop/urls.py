@@ -16,8 +16,23 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+
+from books.views import (
+    ListBooksView,
+    ShowBookView,
+    ListGenresView,
+    ListPublishersView,
+    ListAuthorsView,
+)
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api-auth", include("rest_framework.urls", namespace="rest_framework")),
+    path("books/", ListBooksView.as_view()),
+    path("books/<uuid:uuid>", ShowBookView.as_view()),
+    path("genres/", ListGenresView.as_view()),
+    path("publishers/", ListPublishersView.as_view()),
+    path("authors/", ListAuthorsView.as_view()),
 ]
