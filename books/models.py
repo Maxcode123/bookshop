@@ -48,7 +48,7 @@ class Author(BaseModel, UUIDMixin):
 
     first_names = CharField(max_length=200)
     last_name = CharField(max_length=200)
-    date_of_birth = DateField()
+    date_of_birth = DateField(null=True, blank=True)
     date_of_death = DateField(null=True, blank=True)
     summary = TextField()
 
