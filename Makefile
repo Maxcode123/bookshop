@@ -29,3 +29,6 @@ run:
 
 console:
 	uv run python manage.py shell
+
+populate-db:
+	uv run python manage.py runscript populate_db
