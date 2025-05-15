@@ -20,12 +20,19 @@ class Genre(BaseModel, UUIDMixin):
         db_table = "genres"
         ordering = ["name"]
 
-    parent_id = IntegerField(null=True, blank=True)
-    root_id = IntegerField()
     name = CharField(max_length=100)
 
     def __str__(self) -> str:
         return self.name
+
+
+@register_admin
+class GenreChild(BaseModel):
+    class Meta:
+        db_table = "genre_children"
+
+    genre = ForeignKey(Genre, on_delete=CASCADE, related_name="children")
+    child_id = IntegerField()
 
 
 @register_admin
