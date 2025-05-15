@@ -2,11 +2,20 @@ from uuid import uuid4
 from datetime import date
 from typing import Type, Any
 
-from books.models import Book, Author, BookAuthor, BookGenre, Genre, Publisher
+from books.models import (
+    Book,
+    Author,
+    BookAuthor,
+    BookGenre,
+    Genre,
+    Publisher,
+    GenreChild,
+)
 
 
 def run():
     create_genres()
+    create_genre_children()
     create_publishers()
     create_authors()
     create_books()
@@ -15,22 +24,21 @@ def run():
 
 
 def create_genres() -> None:
-    create_if_not_exists(1, Genre, dict(uuid=uuid4(), root_id=1, name="Λογοτεχνία"))
-    create_if_not_exists(
-        2, Genre, dict(uuid=uuid4(), parent_id=1, root_id=1, name="Ποίηση")
-    )
-    create_if_not_exists(
-        3, Genre, dict(uuid=uuid4(), parent_id=2, root_id=1, name="Ελληνική Ποίηση")
-    )
-    create_if_not_exists(
-        4, Genre, dict(uuid=uuid4(), parent_id=3, root_id=1, name="Νεοελληνική Ποίηση")
-    )
-    create_if_not_exists(5, Genre, dict(uuid=uuid4(), root_id=5, name="Λαογραφία"))
-    create_if_not_exists(
-        6, Genre, dict(uuid=uuid4(), parent_id=5, root_id=5, name="Δημοτικά Τραγούδια")
-    )
-    create_if_not_exists(7, Genre, dict(uuid=uuid4(), root_id=7, name="Ιστορία"))
-    create_if_not_exists(8, Genre, dict(uuid=uuid4(), root_id=8, name="Κρήτη"))
+    create_if_not_exists(1, Genre, dict(uuid=uuid4(), name="Λογοτεχνία"))
+    create_if_not_exists(2, Genre, dict(uuid=uuid4(), name="Ποίηση"))
+    create_if_not_exists(3, Genre, dict(uuid=uuid4(), name="Ελληνική Ποίηση"))
+    create_if_not_exists(4, Genre, dict(uuid=uuid4(), name="Νεοελληνική Ποίηση"))
+    create_if_not_exists(5, Genre, dict(uuid=uuid4(), name="Λαογραφία"))
+    create_if_not_exists(6, Genre, dict(uuid=uuid4(), name="Δημοτικά Τραγούδια"))
+    create_if_not_exists(7, Genre, dict(uuid=uuid4(), name="Ιστορία"))
+    create_if_not_exists(8, Genre, dict(uuid=uuid4(), name="Κρήτη"))
+
+
+def create_genre_children() -> None:
+    create_if_not_exists(1, GenreChild, dict(genre_id=1, child_id=2))
+    create_if_not_exists(1, GenreChild, dict(genre_id=2, child_id=3))
+    create_if_not_exists(1, GenreChild, dict(genre_id=3, child_id=4))
+    create_if_not_exists(1, GenreChild, dict(genre_id=5, child_id=6))
 
 
 def create_publishers() -> None:
