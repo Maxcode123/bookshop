@@ -1,5 +1,5 @@
 from typing import Self, Optional
-from uuid import uuid4
+from uuid import uuid4, UUID
 
 from django.db.models import Model, DateTimeField, UUIDField
 from django.contrib import admin
@@ -36,3 +36,11 @@ class UUIDMixin(Model):
         abstract = True
 
     uuid = UUIDField(default=uuid4, null=False, unique=True)
+
+    @classmethod
+    def find_by_uuid(cls, uuid: UUID) -> Optional[Self]:
+        """Find a model by uuid. Returns None if the model is not found."""
+        try:
+            return cls.objects.get(uuid=uuid)
+        except cls.DoesNotExist:
+            return None
