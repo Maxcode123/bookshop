@@ -1,3 +1,6 @@
+from uuid import UUID
+from typing import Iterable
+
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 
 from books.models import Book, Genre, Publisher, Author
@@ -18,12 +21,17 @@ class ListBooksView(ListAPIView):
         return queryset
 
     def _permitted_params(self):
-        permitted = {"genre": "genres__uuid"}
-        return {
-            permitted[k]: v
-            for k, v in self.request.query_params.items()
-            if k in permitted
-        }
+        genre_uuid = self.request.query_params.get("genre", None)
+        if genre_uuid is not None:
+            return {"genres__uuid__in": self._get_genre_children_uuids(genre_uuid)}
+
+        return {}
+
+    def _get_genre_children_uuids(self, genre_uuid: UUID) -> Iterable[UUID]:
+        parent = Genre.find_by_uuid(genre_uuid)
+        children = Genre.objects.filter(path__descendants=parent.path)
+        uuids = map(lambda g: g.uuid, children)
+        return uuids
 
 
 class ShowBookView(RetrieveAPIView):
