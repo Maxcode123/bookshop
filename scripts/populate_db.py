@@ -14,23 +14,31 @@ def run():
     create_book_authors()
 
 
+def create_if_not_exists(id: int, model_cls: Type, values: dict[str, Any]) -> None:
+    if model_cls.find(id) is None:
+        model_cls(id=id, **values).save()
+
+
 def create_genres() -> None:
-    create_if_not_exists(1, Genre, dict(uuid=uuid4(), root_id=1, name="Λογοτεχνία"))
+    create_if_not_exists(1, Genre, dict(name="Λογοτεχνία", path="literature"))
+    create_if_not_exists(2, Genre, dict(name="Ποίηση", path="literature.poetry"))
     create_if_not_exists(
-        2, Genre, dict(uuid=uuid4(), parent_id=1, root_id=1, name="Ποίηση")
+        3, Genre, dict(name="Ελληνική Ποίηση", path="literature.poetry.greek_poetry")
     )
     create_if_not_exists(
-        3, Genre, dict(uuid=uuid4(), parent_id=2, root_id=1, name="Ελληνική Ποίηση")
+        4,
+        Genre,
+        dict(
+            name="Νεοελληνική Ποίηση",
+            path="literature.poetry.greek_poetry.contemporary_greek_poetry",
+        ),
     )
+    create_if_not_exists(5, Genre, dict(name="Λαογραφία", path="folklore"))
     create_if_not_exists(
-        4, Genre, dict(uuid=uuid4(), parent_id=3, root_id=1, name="Νεοελληνική Ποίηση")
+        6, Genre, dict(name="Δημοτικά Τραγούδια", path="folklore.folk_songs")
     )
-    create_if_not_exists(5, Genre, dict(uuid=uuid4(), root_id=5, name="Λαογραφία"))
-    create_if_not_exists(
-        6, Genre, dict(uuid=uuid4(), parent_id=5, root_id=5, name="Δημοτικά Τραγούδια")
-    )
-    create_if_not_exists(7, Genre, dict(uuid=uuid4(), root_id=7, name="Ιστορία"))
-    create_if_not_exists(8, Genre, dict(uuid=uuid4(), root_id=8, name="Κρήτη"))
+    create_if_not_exists(7, Genre, dict(name="Ιστορία", path="history"))
+    create_if_not_exists(8, Genre, dict(name="Κρήτη", path="crete"))
 
 
 def create_publishers() -> None:
@@ -192,8 +200,3 @@ def create_book_authors() -> None:
     create_if_not_exists(9, BookAuthor, dict(role=6, author_id=3, book_id=3))
     create_if_not_exists(10, BookAuthor, dict(role=3, author_id=4, book_id=4))
     create_if_not_exists(11, BookAuthor, dict(role=2, author_id=5, book_id=5))
-
-
-def create_if_not_exists(id: int, model_cls: Type, values: dict[str, Any]) -> None:
-    if model_cls.find(id) is None:
-        model_cls(id=id, **values).save()

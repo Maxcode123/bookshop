@@ -10,6 +10,7 @@ from django.db.models import (
     ManyToManyField,
     CASCADE,
 )
+from django_ltree.fields import PathField
 
 from utils.base_model import register_admin, BaseModel, UUIDMixin
 
@@ -20,9 +21,8 @@ class Genre(BaseModel, UUIDMixin):
         db_table = "genres"
         ordering = ["name"]
 
-    parent_id = IntegerField(null=True, blank=True)
-    root_id = IntegerField()
     name = CharField(max_length=100)
+    path = PathField(default="root")
 
     def __str__(self) -> str:
         return self.name
