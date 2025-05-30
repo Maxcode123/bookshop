@@ -15,11 +15,17 @@ stop-db:
 connect-db:
 	psql -h localhost -U postgres -d bookshop
 
+clean-db:
+	uv run python manage.py flush
+
 clean-containers:
 	docker container rm -f $(DB_CONTAINER)
 
 create-migrations:
 	uv run python manage.py makemigrations
+
+migrate:
+	uv run python manage.py migrate
 
 test:
 	uv run python manage.py test -v 2
