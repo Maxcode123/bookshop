@@ -27,6 +27,32 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+LOGGING = {
+    "version": 1,
+    "filters": {"require_debug_true": {"()": "django.utils.log.RequireDebugTrue"}},
+    "formatters": {
+        "default_formatter": {
+            "()": "logs.formatter.ColoredFormatter",
+            "format": "[%(asctime)s] %(levelname)s: \t%(message)s",
+            "datefmt": "%H:%M:%S",
+        }
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "default_formatter",
+        }
+    },
+    "loggers": {
+        "django.db.backends": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+        }
+    },
+}
+
 
 # Application definition
 
