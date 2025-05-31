@@ -5,6 +5,8 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "django-extensions>=4.1",
+    "django-ltree>=0.5.3",
     "djangorestframework>=3.16.0",
     "psycopg2>=2.9.10",
 ]
