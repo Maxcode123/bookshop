@@ -8,6 +8,7 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView
 from books.models import Book, Genre, Publisher, Author
 from books.serializers import (
     BookSerializer,
+    DetailedBookSerializer,
     GenreSerializer,
     PublisherSerializer,
     AuthorSerializer,
@@ -60,7 +61,7 @@ class ListBooksView(ListAPIView):
 
 
 class ShowBookView(RetrieveAPIView):
-    serializer_class = BookSerializer
+    serializer_class = DetailedBookSerializer
     lookup_field = "uuid"
     queryset = Book.objects.prefetch_related("publisher", "genres", "authors")
 
