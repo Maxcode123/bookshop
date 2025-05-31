@@ -1,6 +1,6 @@
-from rest_framework.serializers import ModelSerializer, StringRelatedField
+from rest_framework.serializers import ModelSerializer, StringRelatedField, RelatedField
 
-from books.models import Genre, Publisher, Author, Book
+from books.models import Genre, Publisher, Author, Book, BookAuthor
 
 
 class GenreSerializer(ModelSerializer):
@@ -29,10 +29,26 @@ class AuthorSerializer(ModelSerializer):
         )
 
 
+class BookAuthorField(RelatedField):
+    def to_representation(self, value):
+        book_authors = BookAuthor.objects.select_related("author").filter(
+            book_id=value.instance.id
+        )
+        authors = []
+        for book_author in book_authors:
+            author = {
+                "name": book_author.author.full_name(),
+                "role": book_author.role_str(),
+            }
+            authors.append(author)
+
+        return authors
+
+
 class BookSerializer(ModelSerializer):
     publisher = StringRelatedField(many=False)
     genres = StringRelatedField(many=True)
-    authors = StringRelatedField(many=True)
+    authors = BookAuthorField(read_only=True)
 
     class Meta:
         model = Book
