@@ -15,6 +15,7 @@ from books.serializers import (
 )
 
 
+# /books/
 class ListBooksView(ListAPIView):
     serializer_class = BookSerializer
 
@@ -60,22 +61,26 @@ class ListBooksView(ListAPIView):
         return uuids
 
 
+# /books/<uuid>
 class ShowBookView(RetrieveAPIView):
     serializer_class = DetailedBookSerializer
     lookup_field = "uuid"
     queryset = Book.objects.prefetch_related("publisher", "genres", "authors")
 
 
+# /genres/
 class ListGenresView(ListAPIView):
     serializer_class = GenreSerializer
     queryset = Genre.objects.all()
 
 
+# /publishers/
 class ListPublishersView(ListAPIView):
     serializer_class = PublisherSerializer
     queryset = Publisher.objects.all()
 
 
+# /authors/
 class ListAuthorsView(ListAPIView):
     serializer_class = AuthorSerializer
     queryset = Author.objects.all()
