@@ -36,5 +36,8 @@ run:
 console:
 	uv run python manage.py shell
 
+format:
+	ruff format ./
+
 populate-db:
 	uv run python manage.py runscript populate_db
