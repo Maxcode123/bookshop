@@ -5,26 +5,25 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('books', '0005_genrenode_alter_author_options_alter_book_options_and_more'),
+        ("books", "0005_genrenode_alter_author_options_alter_book_options_and_more"),
     ]
 
     operations = [
         migrations.DeleteModel(
-            name='GenreNode',
+            name="GenreNode",
         ),
         migrations.RemoveField(
-            model_name='genre',
-            name='parent_id',
+            model_name="genre",
+            name="parent_id",
         ),
         migrations.RemoveField(
-            model_name='genre',
-            name='root_id',
+            model_name="genre",
+            name="root_id",
         ),
         migrations.AddField(
-            model_name='genre',
-            name='path',
-            field=django_ltree.fields.PathField(default='root'),
+            model_name="genre",
+            name="path",
+            field=django_ltree.fields.PathField(default="root"),
         ),
     ]

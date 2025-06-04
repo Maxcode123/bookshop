@@ -55,6 +55,9 @@ class Author(BaseModel, UUIDMixin):
     def __str__(self) -> str:
         return f"{self.first_names} {self.last_name}"
 
+    def full_name(self) -> str:
+        return str(self)
+
 
 @register_admin
 class Book(BaseModel, UUIDMixin):
@@ -124,9 +127,21 @@ class BookAuthor(BaseModel):
         INTRODUCTION = 5
         ANTHOLOGIST = 6
 
+    _roles_map = {
+        1: "Συγγραφέας",
+        2: "Μεταφραστής",
+        3: "Επιμελητής",
+        4: "Επιμελητής Σειράς",
+        5: "Εισαγωγή",
+        6: "Ανθολόγιση",
+    }
+
     author = ForeignKey(Author, on_delete=CASCADE)
     book = ForeignKey(Book, on_delete=CASCADE)
     role = IntegerField(choices=Role)
+
+    def role_str(self) -> str:
+        return self._roles_map[self.role]
 
 
 @register_admin
