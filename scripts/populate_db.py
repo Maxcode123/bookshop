@@ -3,6 +3,7 @@ from datetime import date
 from typing import Type, Any
 
 from books.models import Book, Author, BookAuthor, BookGenre, Genre, Publisher
+from bookshop.errors import RecordNotFound
 
 
 def run():
@@ -15,7 +16,9 @@ def run():
 
 
 def create_if_not_exists(id: int, model_cls: Type, values: dict[str, Any]) -> None:
-    if model_cls.find(id) is None:
+    try:
+        model_cls.find(id)
+    except RecordNotFound:
         model_cls(id=id, **values).save()
 
 

@@ -3,6 +3,9 @@ from uuid import uuid4, UUID
 
 from django.db.models import Model, DateTimeField, UUIDField
 from django.contrib import admin
+from django.core.exceptions import ValidationError as DjangoValidationError
+
+from bookshop.errors import RecordNotFound, ValidationError
 
 
 def register_admin(model_cls):
@@ -23,12 +26,12 @@ class BaseModel(Model):
         return str(d)
 
     @classmethod
-    def find(cls, id: int) -> Optional[Self]:
-        """Find a model by id. Returns None if the model is not found."""
+    def find(cls, id: int) -> Self:
+        """Find a model by id. Raises bookshop.errors.RecordNotFound if the model is not found."""
         try:
             return cls.objects.get(id=id)
         except cls.DoesNotExist:
-            return None
+            raise RecordNotFound(cls, {"id": id})
 
 
 class UUIDMixin(Model):
@@ -39,8 +42,10 @@ class UUIDMixin(Model):
 
     @classmethod
     def find_by_uuid(cls, uuid: UUID) -> Optional[Self]:
-        """Find a model by uuid. Returns None if the model is not found."""
+        """Find a model by uuid. Raises bookshop.errors.RecordNotFound if the model is not found."""
         try:
             return cls.objects.get(uuid=uuid)
         except cls.DoesNotExist:
-            return None
+            raise RecordNotFound(cls, {"uuid": uuid})
+        except DjangoValidationError as e:
+            raise ValidationError(e)
