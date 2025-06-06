@@ -110,14 +110,7 @@ DATABASES = {
         "USER": os.environ.get("POSTGRES_DB_USER", "postgres"),
         "PASSWORD": os.environ.get("POSTGRES_DB_PASSWORD", "postgres"),
         "HOST": os.environ.get("POSTGRES_DB_HOST", "localhost"),
-        "POST": os.environ.get("POSTGRES_DB_PORT", 5432),
-    },
-    "test": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "bookshop_test",
-        "USER": "postgres",
-        "PASSWORD": "postgres",
-        "HOST": "postgres-test-db",
+        "PORT": os.environ.get("POSTGRES_DB_PORT", 5432),
     },
 }
 
