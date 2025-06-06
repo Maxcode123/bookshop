@@ -1,25 +1,20 @@
-DB_CONTAINER=bookshop-postgres-db
+run:
+	docker-compose up -d database backend
 
-start-db:
-	docker run --name $(DB_CONTAINER) -p 5432:5432 -e POSTGRES_PASSWORD=postgres postgres
+stop:
+	docker-compose down
 
-restart-db:
-	docker restart $(DB_CONTAINER)
+log:
+	docker-compose logs backend
 
 log-db:
-	docker container logs $(DB_CONTAINER)
-
-stop-db:
-	docker stop $(DB_CONTAINER)
+	docker-compose logs database
 
 connect-db:
-	psql -h localhost -U postgres -d bookshop
+	psql -h localhost -p 5432 -U postgres -d bookshop
 
 clean-db:
 	uv run python manage.py flush
-
-clean-containers:
-	docker container rm -f $(DB_CONTAINER)
 
 create-migrations:
 	uv run python manage.py makemigrations
@@ -28,10 +23,9 @@ migrate:
 	uv run python manage.py migrate
 
 test:
-	uv run python manage.py test -v 2
-
-run:
-	uv run python manage.py runserver
+	docker-compose up -d --no-deps database
+	docker-compose run backend python manage.py test -v 2
+	docker-compose down
 
 console:
 	uv run python manage.py shell
