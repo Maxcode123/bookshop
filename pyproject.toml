@@ -13,4 +13,5 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "unittest-extensions>=0.3.0",
+    "factory-boy>=3.3.3",
 ]
