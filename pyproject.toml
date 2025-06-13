@@ -10,8 +10,10 @@ dependencies = [
     "djangorestframework>=3.16.0",
     "psycopg2>=2.9.10",
 ]
-[project.optional-dependencies]
+
+[dependency-groups]
 dev = [
-    "unittest-extensions>=0.3.0",
     "factory-boy>=3.3.3",
+    "faker-books>=0.1.0",
+    "unittest-extensions>=0.3.0",
 ]

@@ -21,10 +21,11 @@ dependencies = [
     { name = "psycopg2" },
 ]
 
-[package.optional-dependencies]
+[package.dev-dependencies]
 dev = [
-    { name = "unittest-extensions" },
     { name = "factory-boy" },
+    { name = "faker-books" },
+    { name = "unittest-extensions" },
 ]
 
 [package.metadata]
@@ -32,9 +33,14 @@ requires-dist = [
     { name = "django-extensions", specifier = ">=4.1" },
     { name = "django-ltree", specifier = ">=0.5.3" },
     { name = "djangorestframework", specifier = ">=3.16.0" },
-    { name = "factory-boy", specifier = ">=3.3.3" },
     { name = "psycopg2", specifier = ">=2.9.10" },
-    { name = "unittest-extensions", marker = "extra == 'dev'", specifier = ">=0.3.0" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "factory-boy", specifier = ">=3.3.3" },
+    { name = "faker-books", specifier = ">=0.1.0" },
+    { name = "unittest-extensions", specifier = ">=0.3.0" },
 ]
 
 [[package]]
@@ -110,6 +116,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/97/4b/5354912eaff922876323f2d07e21408b10867f3295d5f917748341cb6f53/faker-37.3.0.tar.gz", hash = "sha256:77b79e7a2228d57175133af0bbcdd26dc623df81db390ee52f5104d46c010f2f", size = 1901376 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ce/99/045b2dae19a01b9fbb23b9971bc04f4ef808e7f3a213d08c81067304a210/faker-37.3.0-py3-none-any.whl", hash = "sha256:48c94daa16a432f2d2bc803c7ff602509699fca228d13e97e379cd860a7e216e", size = 1942203 },
+]
+
+[[package]]
+name = "faker-books"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "faker" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/bc/37/33cbf29989097d4320aeaa15a4afcfcd852d7b60d38b847c8d6a60582a4a/faker_books-0.1.0.tar.gz", hash = "sha256:479f59684d6050c80be632a167d92e4d18805af78310b5e47ef1fbf6b3fe2074", size = 17176 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/70/02/0a8f17131423bf876d2c38f6c11204632f90cd86986fef56683b1e4e43bd/faker_books-0.1.0-py3-none-any.whl", hash = "sha256:c6dfbdc90114150386f82e47ec8dc798314a314fe28f8316afcd71afe1f4ed1d", size = 17941 },
 ]
 
 [[package]]
