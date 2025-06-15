@@ -1,0 +1,42 @@
+services:
+  database:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=bookshop
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - bookshop_backend_network
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - POSTGRES_DB_NAME=bookshop
+      - POSTGRES_DB_USER=postgres
+      - POSTGRES_DB_PASSWORD=postgres
+      - POSTGRES_DB_HOST=database
+      - POSTGRES_DB_PORT=5432
+    networks:
+      - bookshop_backend_network
+    depends_on:
+      - database
+
+networks:
+  bookshop_backend_network:
+    name: bookshop_backend_network
+    external: true
+
+volumes:
+  db_data:
+    name: "bookshop-db-data"

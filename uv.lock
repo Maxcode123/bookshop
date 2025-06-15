@@ -21,12 +21,26 @@ dependencies = [
     { name = "psycopg2" },
 ]
 
+[package.dev-dependencies]
+dev = [
+    { name = "factory-boy" },
+    { name = "faker-books" },
+    { name = "unittest-extensions" },
+]
+
 [package.metadata]
 requires-dist = [
     { name = "django-extensions", specifier = ">=4.1" },
     { name = "django-ltree", specifier = ">=0.5.3" },
     { name = "djangorestframework", specifier = ">=3.16.0" },
     { name = "psycopg2", specifier = ">=2.9.10" },
+]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "factory-boy", specifier = ">=3.3.3" },
+    { name = "faker-books", specifier = ">=0.1.0" },
+    { name = "unittest-extensions", specifier = ">=0.3.0" },
 ]
 
 [[package]]
@@ -81,6 +95,42 @@ wheels = [
 ]
 
 [[package]]
+name = "factory-boy"
+version = "3.3.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "faker" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ba/98/75cacae9945f67cfe323829fc2ac451f64517a8a330b572a06a323997065/factory_boy-3.3.3.tar.gz", hash = "sha256:866862d226128dfac7f2b4160287e899daf54f2612778327dd03d0e2cb1e3d03", size = 164146 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/27/8d/2bc5f5546ff2ccb3f7de06742853483ab75bf74f36a92254702f8baecc79/factory_boy-3.3.3-py2.py3-none-any.whl", hash = "sha256:1c39e3289f7e667c4285433f305f8d506efc2fe9c73aaea4151ebd5cdea394fc", size = 37036 },
+]
+
+[[package]]
+name = "faker"
+version = "37.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "tzdata" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/97/4b/5354912eaff922876323f2d07e21408b10867f3295d5f917748341cb6f53/faker-37.3.0.tar.gz", hash = "sha256:77b79e7a2228d57175133af0bbcdd26dc623df81db390ee52f5104d46c010f2f", size = 1901376 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ce/99/045b2dae19a01b9fbb23b9971bc04f4ef808e7f3a213d08c81067304a210/faker-37.3.0-py3-none-any.whl", hash = "sha256:48c94daa16a432f2d2bc803c7ff602509699fca228d13e97e379cd860a7e216e", size = 1942203 },
+]
+
+[[package]]
+name = "faker-books"
+version = "0.1.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "faker" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/bc/37/33cbf29989097d4320aeaa15a4afcfcd852d7b60d38b847c8d6a60582a4a/faker_books-0.1.0.tar.gz", hash = "sha256:479f59684d6050c80be632a167d92e4d18805af78310b5e47ef1fbf6b3fe2074", size = 17176 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/70/02/0a8f17131423bf876d2c38f6c11204632f90cd86986fef56683b1e4e43bd/faker_books-0.1.0-py3-none-any.whl", hash = "sha256:c6dfbdc90114150386f82e47ec8dc798314a314fe28f8316afcd71afe1f4ed1d", size = 17941 },
+]
+
+[[package]]
 name = "psycopg2"
 version = "2.9.10"
 source = { registry = "https://pypi.org/simple" }
@@ -114,4 +164,13 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/95/32/1a225d6164441be760d75c2c42e2780dc0873fe382da3e98a2e1e48361e5/tzdata-2025.2.tar.gz", hash = "sha256:b60a638fcc0daffadf82fe0f57e53d06bdec2f36c4df66280ae79bce6bd6f2b9", size = 196380 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/5c/23/c7abc0ca0a1526a0774eca151daeb8de62ec457e77262b66b359c3c7679e/tzdata-2025.2-py2.py3-none-any.whl", hash = "sha256:1a403fada01ff9221ca8044d701868fa132215d84beb92242d9acd2147f667a8", size = 347839 },
+]
+
+[[package]]
+name = "unittest-extensions"
+version = "0.3.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/3b/77/9880bd0b63a3dc5edec0c551f822ce6823881f8f93ae6ebf12a34b3debd0/unittest_extensions-0.3.0.tar.gz", hash = "sha256:c8e47b9ccfd8da363210cdbb329c8ac263c4d87546e304856fa19743c73f7c6c", size = 8421 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/5e/f6/d35b204a671ea4b292e92a000898973aa39abc794be539666aa2b2b9fce8/unittest_extensions-0.3.0-py3-none-any.whl", hash = "sha256:b954e66314b32cec53a2eef0dbad453dcba2f81ebc1e98f52cc4ac7f17d0c061", size = 7566 },
 ]

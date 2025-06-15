@@ -42,6 +42,9 @@ class ListBooksFilterBackend(BaseFilterBackend):
 
     @staticmethod
     def _get_genre_children_uuids(genre_uuids: Iterable[UUID]) -> Iterable[UUID]:
+        if len(genre_uuids) == 0:
+            return []
+
         parents = Genre.objects.filter(uuid__in=genre_uuids)
         queries = list(map(lambda p: Q(path__descendants=p.path), parents))
 
