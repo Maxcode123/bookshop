@@ -1,6 +1,12 @@
 run:
 	docker-compose up -d database backend
 
+build-dev:
+	DOCKER_BUILDKIT=1 docker-compose build --build-arg BUILD_GROUPS="--group dev" backend
+
+build-prod:
+	DOCKER_BUILDKIT=1 docker-compose build backend
+
 stop:
 	docker-compose down
 
