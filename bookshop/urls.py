@@ -30,9 +30,9 @@ from books.views import (
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-auth", include("rest_framework.urls", namespace="rest_framework")),
-    path("books/", ListBooksView.as_view()),
-    path("books/<uuid:uuid>", ShowBookView.as_view()),
-    path("genres/", ListGenresView.as_view()),
-    path("publishers/", ListPublishersView.as_view()),
-    path("authors/", ListAuthorsView.as_view()),
+    path("books/", ListBooksView.as_view(), name="index-books"),
+    path("books/<uuid:uuid>", ShowBookView.as_view(), name="show-book"),
+    path("genres/", ListGenresView.as_view(), name="index-genres"),
+    path("publishers/", ListPublishersView.as_view(), name="index-publishers"),
+    path("authors/", ListAuthorsView.as_view(), name="index-authors"),
 ]

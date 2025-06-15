@@ -59,7 +59,7 @@ class Author(BaseModel, UUIDMixin):
         return str(self)
 
 
-@register_admin
+# the class has to be registered in admin on along with BookAdmin
 class Book(BaseModel, UUIDMixin):
     class Meta:
         db_table = "books"
